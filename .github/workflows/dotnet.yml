@@ -21,14 +21,14 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: 🧹 Clean
-      run: dotnet clean src/server/Accent Modular Dotnet Boilerplate.sln -c Release && dotnet nuget locals all --clear
+      run: dotnet clean "./src/server/Accent Modular Dotnet Boilerplate.sln" -c Release && dotnet nuget locals all --clear
 
     - name: 🔁 Restore dependencies
-      run: dotnet restore
+      run: dotnet restore "Accent Modular Dotnet Boilerplate.sln" 
       working-directory: src/server
       
     - name: 🛠️ Build
-      run: dotnet build --no-restore
+      run: dotnet build "Accent Modular Dotnet Boilerplate.sln" --no-restore
       working-directory: src/server
 
 #   - name: 🧪 Run unit tests
