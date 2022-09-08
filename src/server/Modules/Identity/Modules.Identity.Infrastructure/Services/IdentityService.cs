@@ -95,7 +95,7 @@ namespace Modules.Identity.Infrastructure.Services
                 {
                     try
                     {
-                        await _userManager.AddToRoleAsync(user, RoleConstants.Staff);
+                        await _userManager.AddToRoleAsync(user, RoleConstants.Admin);
                     }
                     catch
                     {

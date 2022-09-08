@@ -42,28 +42,8 @@ namespace Modules.Identity.Infrastructure.Persistence
 
         public void Initialize()
         {
-            AddDefaultRoles();
             AddSuperAdmin();
-            AddStaff();
             _db.SaveChanges();
-        }
-
-        private void AddDefaultRoles()
-        {
-            Task.Run(async () =>
-            {
-                var roleList = new List<string> { RoleConstants.SuperAdmin, RoleConstants.Admin, RoleConstants.Manager, RoleConstants.Accountant, RoleConstants.Cashier, RoleConstants.Staff };
-                foreach (string roleName in roleList)
-                {
-                    var role = new AccentRole(roleName);
-                    var roleInDb = await _roleManager.FindByNameAsync(roleName);
-                    if (roleInDb == null)
-                    {
-                        await _roleManager.CreateAsync(role);
-                        _logger.LogInformation(string.Format(_localizer["Added '{0}' to Roles"], roleName));
-                    }
-                }
-            }).GetAwaiter().GetResult();
         }
 
         private void AddSuperAdmin()
@@ -115,38 +95,5 @@ namespace Modules.Identity.Infrastructure.Persistence
             }).GetAwaiter().GetResult();
         }
 
-        private void AddStaff()
-        {
-            Task.Run(async () =>
-            {
-                // Check if Role Exists
-                var basicRole = new AccentRole(RoleConstants.Staff);
-                var basicRoleInDb = await _roleManager.FindByNameAsync(RoleConstants.Staff);
-                if (basicRoleInDb == null)
-                {
-                    await _roleManager.CreateAsync(basicRole);
-                    basicRoleInDb = await _roleManager.FindByNameAsync(RoleConstants.Staff);
-                }
-
-                // Check if User Exists
-                var basicUser = new AccentUser
-                {
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Email = "staff@accentdesign.co.uk",
-                    UserName = "staff",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    IsActive = true
-                };
-                var basicUserInDb = await _userManager.FindByEmailAsync(basicUser.Email);
-                if (basicUserInDb == null)
-                {
-                    await _userManager.CreateAsync(basicUser, UserConstants.DefaultPassword);
-                    await _userManager.AddToRoleAsync(basicUser, RoleConstants.Staff);
-                    _logger.LogInformation(_localizer["Seeded Default Staff."]);
-                }
-            }).GetAwaiter().GetResult();
-        }
     }
 }

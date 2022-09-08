@@ -1,10 +1,10 @@
 **Synonims:**
 
-* |ea-type-name| - the extended attribute class name;
-* |module-name| - the name of the module for adding the new extended attribute;
-* |related-entity-type-name| - the type of entity related with the extended attribute.
+- |ea-type-name| - the extended attribute class name;
+- |module-name| - the name of the module for adding the new extended attribute;
+- |related-entity-type-name| - the type of entity related with the extended attribute.
 
-*Examples in all steps use:*
+_Examples in all steps use:_
 
 |ea-type-name| = `BrandExtendedAttribute`
 
@@ -16,21 +16,21 @@
 
 **Steps:**
 
-1) Add an extended attribute entity class named |ea-type-name| into **FluentPOS.Modules.|module-name|.Core.Entities** inherited from the abstract class `ExtendedAttribute<|related-entity-id-type|, |related-entity-type-name|>`:
+1. Add an extended attribute entity class named |ea-type-name| into **Modules.|module-name|.Core.Entities** inherited from the abstract class `ExtendedAttribute<|related-entity-id-type|, |related-entity-type-name|>`:
 
 ```csharp
-using FluentPOS.Shared.Core.Domain;
+using Shared.Core.Domain;
 
-namespace FluentPOS.Modules.Catalog.Core.Entities
+namespace Modules.Catalog.Core.Entities
 {
     public class BrandExtendedAttribute : ExtendedAttribute<Guid, Brand> { }
 }
 ```
 
-2) Add virtual property `public virtual ICollection<|ea-type-name|> ExtendedAttributes { get; set; }` into the |related-entity-type-name| class and initialize it in it's constrictor:
+2. Add virtual property `public virtual ICollection<|ea-type-name|> ExtendedAttributes { get; set; }` into the |related-entity-type-name| class and initialize it in it's constrictor:
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Entities
+namespace Modules.Catalog.Core.Entities
 {
     public class Brand : BaseEntity
     {
@@ -47,7 +47,7 @@ namespace FluentPOS.Modules.Catalog.Core.Entities
 }
 ```
 
-3) Implement `IExtendedAttributeDbContext<|related-entity-id-type|, |related-entity-type-name|, |ea-type-name|>` in database context class:
+3. Implement `IExtendedAttributeDbContext<|related-entity-id-type|, |related-entity-type-name|, |ea-type-name|>` in database context class:
 
 ```csharp
 public class CatalogDbContext : ModuleDbContext, ICatalogDbContext,
@@ -69,7 +69,7 @@ public class CatalogDbContext : ModuleDbContext, ICatalogDbContext,
 }
 ```
 
-4) Into the `Apply|module-name|Configuration` extension method add this code for resolving types for MSSQL:
+4. Into the `Apply|module-name|Configuration` extension method add this code for resolving types for MSSQL:
 
 ```csharp
 public static void ApplyCatalogConfiguration(this ModelBuilder builder, PersistenceSettings persistenceOptions)
@@ -95,10 +95,10 @@ public static void ApplyCatalogConfiguration(this ModelBuilder builder, Persiste
 }
 ```
 
-5) Add the extended attributes profile into the module (for Automapper):
+5. Add the extended attributes profile into the module (for Automapper):
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Mappings
+namespace Modules.Catalog.Core.Mappings
 {
     public class ExtendedAttributesProfile : Profile
     {
@@ -110,10 +110,10 @@ namespace FluentPOS.Modules.Catalog.Core.Mappings
 }
 ```
 
-6) Add permission constants for the extended attribute:
+6. Add permission constants for the extended attribute:
 
 ```csharp
-namespace FluentPOS.Shared.Core.Constants
+namespace Shared.Core.Constants
 {
     public static class Permissions
     {
@@ -133,10 +133,10 @@ namespace FluentPOS.Shared.Core.Constants
 }
 ```
 
-7) Add the extended attributes controller inherited from the abstract class `ExtendedAttributesController<|related-entity-type-name|>`:
+7. Add the extended attributes controller inherited from the abstract class `ExtendedAttributesController<|related-entity-type-name|>`:
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Controllers
+namespace Modules.Catalog.Controllers
 {
     [ApiVersion("1")]
     [Route(BaseController.BasePath + "/" + nameof(Brand) + "/attributes")]
@@ -181,10 +181,10 @@ namespace FluentPOS.Modules.Catalog.Controllers
 Here you should add `Authorize` attributes to all needed actions, `Route` attribute to the controller.
 You can change route templates for actions using `HttpGet`, `HttpPost`, `HttpPut` and `HttpDelete` attributes here.
 
-8) Add `AddExtendedAttributeDbContextsFromAssembly` extension method in `ServiceCollectionExtensions` for |module-name| to register extended attribute handlers automatically for this module:
+8. Add `AddExtendedAttributeDbContextsFromAssembly` extension method in `ServiceCollectionExtensions` for |module-name| to register extended attribute handlers automatically for this module:
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Infrastructure.Extensions
+namespace Modules.Catalog.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -201,10 +201,10 @@ namespace FluentPOS.Modules.Catalog.Infrastructure.Extensions
 }
 ```
 
-9) Add validators for added extended attribute into **FluentPOS.Modules.|module-name|.Core.*.Validators** inherited from each the abstract classes: `AddExtendedAttributeCommandValidator<|related-entity-id-type|, |related-entity-type-name|>`, `UpdateExtendedAttributeCommandValidator<|related-entity-id-type|, |related-entity-type-name|>` and `RemoveExtendedAttributeCommandValidator<|related-entity-id-type|, |related-entity-type-name|>`:
+9. Add validators for added extended attribute into **Modules.|module-name|.Core.\*.Validators** inherited from each the abstract classes: `AddExtendedAttributeCommandValidator<|related-entity-id-type|, |related-entity-type-name|>`, `UpdateExtendedAttributeCommandValidator<|related-entity-id-type|, |related-entity-type-name|>` and `RemoveExtendedAttributeCommandValidator<|related-entity-id-type|, |related-entity-type-name|>`:
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
+namespace Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
 {
     public class AddBrandExtendedAttributeCommandValidator : AddExtendedAttributeCommandValidator<Guid, Brand>
     {
@@ -217,7 +217,7 @@ namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.
 ```
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
+namespace Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
 {
     public class UpdateBrandExtendedAttributeCommandValidator : UpdateExtendedAttributeCommandValidator<Guid, Brand>
     {
@@ -230,7 +230,7 @@ namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.
 ```
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
+namespace Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
 {
     public class RemoveBrandExtendedAttributeCommandValidator : RemoveExtendedAttributeCommandValidator<Guid, Brand>
     {
@@ -243,7 +243,7 @@ namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.
 ```
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
+namespace Modules.Catalog.Core.Features.ExtendedAttributes.Validators.Brands
 {
     public class PaginatedBrandExtendedAttributeFilterValidator : PaginatedExtendedAttributeFilterValidator<Guid, Brand>
     {
@@ -255,10 +255,10 @@ namespace FluentPOS.Modules.Catalog.Core.Features.ExtendedAttributes.Validators.
 }
 ```
 
-10) Add `AddExtendedAttributeHandlersFromAssembly` and `AddExtendedAttributeCommandValidatorsFromAssembly` extension methods in `ServiceCollectionExtensions` for |module-name| to register extended attribute handlers and handler validators automatically for this module:
+10. Add `AddExtendedAttributeHandlersFromAssembly` and `AddExtendedAttributeCommandValidatorsFromAssembly` extension methods in `ServiceCollectionExtensions` for |module-name| to register extended attribute handlers and handler validators automatically for this module:
 
 ```csharp
-namespace FluentPOS.Modules.Catalog.Core.Extensions
+namespace Modules.Catalog.Core.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -279,13 +279,13 @@ namespace FluentPOS.Modules.Catalog.Core.Extensions
 }
 ```
 
-11) Add the database migration using terminal: 
+11. Add the database migration using terminal:
 
 ```
 dotnet ef migrations add "initial" --startup-project ../../../API -o Persistence/Migrations/ --context CatalogDbContext
 ```
 
-Or using *Package Manager Console* in Visual Studio (should change *Default project* to **Modules.Catalog.Infrastructure**):
+Or using _Package Manager Console_ in Visual Studio (should change _Default project_ to **Modules.Catalog.Infrastructure**):
 
 ```
 add-migration initial -o Persistence/Migrations/ -context CatalogDbContext
