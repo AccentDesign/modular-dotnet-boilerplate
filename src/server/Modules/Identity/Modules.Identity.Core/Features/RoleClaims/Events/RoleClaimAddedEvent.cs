@@ -23,7 +23,7 @@ namespace Modules.Identity.Core.Features.RoleClaims.Events
 
         public string Description { get; }
 
-        public RoleClaimAddedEvent(FluentRoleClaim roleClaim)
+        public RoleClaimAddedEvent(AccentRoleClaim roleClaim)
         {
             RoleId = roleClaim.RoleId;
             Group = roleClaim.Group;
@@ -32,7 +32,7 @@ namespace Modules.Identity.Core.Features.RoleClaims.Events
             Description = roleClaim.Description;
             Id = roleClaim.Id;
             AggregateId = Guid.NewGuid();
-            RelatedEntities = new[] { typeof(FluentRoleClaim) };
+            RelatedEntities = new[] { typeof(AccentRoleClaim) };
         }
     }
 }

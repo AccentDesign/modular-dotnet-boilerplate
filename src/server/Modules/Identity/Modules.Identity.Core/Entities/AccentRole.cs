@@ -15,7 +15,7 @@ namespace Modules.Identity.Core.Entities
     {
         public string Description { get; set; }
 
-        public virtual ICollection<FluentRoleClaim> RoleClaims { get; set; }
+        public virtual ICollection<AccentRoleClaim> RoleClaims { get; set; }
 
         public virtual ICollection<RoleExtendedAttribute> ExtendedAttributes { get; set; }
 
@@ -42,14 +42,14 @@ namespace Modules.Identity.Core.Entities
         public AccentRole()
             : base()
         {
-            RoleClaims = new HashSet<FluentRoleClaim>();
+            RoleClaims = new HashSet<AccentRoleClaim>();
             ExtendedAttributes = new HashSet<RoleExtendedAttribute>();
         }
 
         public AccentRole(string roleName, string roleDescription = null)
             : base(roleName)
         {
-            RoleClaims = new HashSet<FluentRoleClaim>();
+            RoleClaims = new HashSet<AccentRoleClaim>();
             ExtendedAttributes = new HashSet<RoleExtendedAttribute>();
             Description = roleDescription;
         }

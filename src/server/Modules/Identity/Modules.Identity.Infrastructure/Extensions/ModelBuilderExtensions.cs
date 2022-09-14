@@ -36,7 +36,7 @@ namespace Modules.Identity.Infrastructure.Extensions
             {
                 entity.ToTable(name: "Roles");
             });
-            builder.Entity<FluentRoleClaim>(entity =>
+            builder.Entity<AccentRoleClaim>(entity =>
             {
                 entity.ToTable(name: "RoleClaims");
 

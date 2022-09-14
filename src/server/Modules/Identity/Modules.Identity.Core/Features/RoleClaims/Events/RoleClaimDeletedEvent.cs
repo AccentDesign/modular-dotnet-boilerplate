@@ -17,7 +17,7 @@ namespace Modules.Identity.Core.Features.RoleClaims.Events
         {
             Id = id;
             AggregateId = Guid.NewGuid();
-            RelatedEntities = new[] { typeof(FluentRoleClaim) };
+            RelatedEntities = new[] { typeof(AccentRoleClaim) };
         }
     }
 }

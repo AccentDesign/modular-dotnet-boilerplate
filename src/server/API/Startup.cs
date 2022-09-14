@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.EmployeeManagement.Extensions;
 using Modules.Identity.Extensions;
 using Shared.Core.Extensions;
 using Shared.Infrastructure.Extensions;
@@ -29,6 +30,7 @@ namespace Bootstrapper
                 .AddSerialization(_config)
                 .AddSharedInfrastructure(_config)
                 .AddIdentityModule(_config)
+                .AddEmployeeManagementModule(_config)
                 .AddSharedApplication(_config);
         }
 

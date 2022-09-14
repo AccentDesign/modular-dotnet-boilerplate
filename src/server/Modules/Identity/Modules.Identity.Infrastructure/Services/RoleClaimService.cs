@@ -96,7 +96,7 @@ namespace Modules.Identity.Infrastructure.Services
                     return await Result<string>.FailAsync(_localizer["Similar Role Claim already exists."]);
                 }
 
-                var roleClaim = _mapper.Map<FluentRoleClaim>(request);
+                var roleClaim = _mapper.Map<AccentRoleClaim>(request);
                 await _db.RoleClaims.AddAsync(roleClaim);
                 roleClaim.AddDomainEvent(new RoleClaimAddedEvent(roleClaim));
                 await _db.SaveChangesAsync();

@@ -25,7 +25,7 @@ using Shared.Infrastructure.Extensions;
 
 namespace Modules.Identity.Infrastructure.Persistence
 {
-    public sealed class IdentityDbContext : IdentityDbContext<AccentUser, AccentRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, FluentRoleClaim, IdentityUserToken<string>>,
+    public sealed class IdentityDbContext : IdentityDbContext<AccentUser, AccentRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, AccentRoleClaim, IdentityUserToken<string>>,
         IIdentityDbContext,
         IModuleDbContext,
         IExtendedAttributeDbContext<string, AccentUser, UserExtendedAttribute>,

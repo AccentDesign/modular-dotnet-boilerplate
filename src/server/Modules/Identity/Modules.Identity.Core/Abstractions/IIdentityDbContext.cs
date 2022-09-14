@@ -15,6 +15,6 @@ namespace Modules.Identity.Core.Abstractions
 
         public DbSet<AccentRole> Roles { get; set; }
 
-        public DbSet<FluentRoleClaim> RoleClaims { get; set; }
+        public DbSet<AccentRoleClaim> RoleClaims { get; set; }
     }
 }

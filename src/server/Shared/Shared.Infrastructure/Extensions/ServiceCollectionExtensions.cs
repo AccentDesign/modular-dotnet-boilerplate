@@ -36,6 +36,7 @@ using Shared.Infrastructure.Swagger.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 [assembly: InternalsVisibleTo("Bootstrapper")]
+[assembly: InternalsVisibleTo("Shared.Test")]
 
 namespace Shared.Infrastructure.Extensions
 {

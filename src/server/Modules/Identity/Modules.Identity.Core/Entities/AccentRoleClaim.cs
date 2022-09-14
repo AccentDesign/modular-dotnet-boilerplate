@@ -10,7 +10,7 @@ using Shared.Core.Domain;
 
 namespace Modules.Identity.Core.Entities
 {
-    public class FluentRoleClaim : IdentityRoleClaim<string>, IBaseEntity
+    public class AccentRoleClaim : IdentityRoleClaim<string>, IBaseEntity
     {
         public string Description { get; set; }
 
@@ -38,12 +38,12 @@ namespace Modules.Identity.Core.Entities
             _domainEvents?.Clear();
         }
 
-        public FluentRoleClaim()
+        public AccentRoleClaim()
             : base()
         {
         }
 
-        public FluentRoleClaim(string roleClaimDescription = null, string roleClaimGroup = null)
+        public AccentRoleClaim(string roleClaimDescription = null, string roleClaimGroup = null)
             : base()
         {
             Description = roleClaimDescription;
