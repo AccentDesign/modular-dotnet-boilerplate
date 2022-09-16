@@ -9,6 +9,7 @@ namespace Shared.Test.Extensions
         public static IServiceCollection AddSharedCoreServicesForTestAssemblies(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddSerialization(configuration);
+            services.AddSharedApplication(configuration);
 
             return services;
         }

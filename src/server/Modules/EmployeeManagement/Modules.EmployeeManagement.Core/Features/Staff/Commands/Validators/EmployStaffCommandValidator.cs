@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Localization;
 
 namespace Modules.EmployeeManagement.Core.Features.Staff.Commands.Validators;
-public class EmployStaffCommandValidator : FluentValidation.AbstractValidator<EmployStaffCommand>
+public class EmployStaffCommandValidator : AbstractValidator<EmployStaffCommand>
 {
     public EmployStaffCommandValidator(IStringLocalizer<EmployStaffCommandValidator> localizer)
     {
