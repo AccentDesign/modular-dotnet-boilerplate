@@ -16,9 +16,9 @@ namespace Modules.EmployeeManagement.IntegrationTests.Staff.Command
 
 
         [Fact]
-        public async Task Handle_EmployStaffNewStaff_ShouldInserInDataBase()
+        public async Task Handle_EmployStaffNewStaff_ShouldInsertInDataBase()
         {
-            var newEmployee = await _mediator.Send(new EmployStaffCommand("123", "Reza", "Bashiri", DateTime.Now));
+            var newEmployee = await _mediator.Send(new EmployStaffCommand("123456", "Reza", "Bashiri", DateTime.Now));
 
             newEmployee.Data.Should().NotBeEmpty();
         }

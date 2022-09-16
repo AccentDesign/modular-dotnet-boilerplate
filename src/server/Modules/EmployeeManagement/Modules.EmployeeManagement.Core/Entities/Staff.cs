@@ -17,6 +17,16 @@ namespace Modules.EmployeeManagement.Core.Entities
 
         public ICollection<StaffTask> StaffTasks { get; set; }
 
+        public static Staff InitializeStaff() => new Staff() { EmployeedAt = DateTime.UtcNow };
+
+        public void AddTaskToStaff(IEnumerable<StaffTask> tasks)
+        {
+            foreach (var staffTask in tasks)
+            {
+                StaffTasks.Add(staffTask);
+            }
+        }
+
         public Staff() : base()
         {
             StaffTasks = new HashSet<StaffTask>();

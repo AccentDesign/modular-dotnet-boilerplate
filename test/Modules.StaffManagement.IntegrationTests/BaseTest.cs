@@ -13,7 +13,7 @@ namespace Modules.EmployeeManagement.IntegrationTests
         public virtual IServiceProvider MakeServiceProvider(IServiceCollection services)
         {
             var configuration = BuildConfiguration();
-            services.AddSingleton( configuration);
+             services.AddSingleton( configuration);
             services.AddSharedCoreServicesForTestAssemblies(configuration);
             services.AddsSharedInfrastructureForTestAssemblies(configuration);
             services.AddEmployeeManagementModule(configuration);
@@ -27,9 +27,15 @@ namespace Modules.EmployeeManagement.IntegrationTests
 
         private IConfiguration BuildConfiguration()
         {
-            var configuration = new ConfigurationBuilder().AddJsonFile(Path.GetFullPath("../../../../../src/server/API/appsettings.json")).Build();
-
-            return configuration;
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile(Path.GetFullPath("../../../../../src/server/API/appsettings.json"))
+                .AddInMemoryCollection(new List<KeyValuePair<string, string>>() // Override for test environment
+                {
+                    new KeyValuePair<string, string>("PersistenceSettings:UseMsSql","false"),
+                    new KeyValuePair<string, string>("PersistenceSettings:UseInMemory","true")
+                });
+            
+            return configuration.Build();
         }
     }
 }

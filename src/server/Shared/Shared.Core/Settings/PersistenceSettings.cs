@@ -11,6 +11,8 @@ namespace Shared.Core.Settings
 
         public bool UsePostgres { get; set; }
 
+        public bool UseInMemory { get; set; }
+
         public PersistenceConnectionStrings ConnectionStrings { get; set; }
 
         public class PersistenceConnectionStrings

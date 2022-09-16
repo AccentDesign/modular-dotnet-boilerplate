@@ -9,7 +9,7 @@ namespace Modules.EmployeeManagement.Core.Extensions
         public static IServiceCollection AddEmployeeManagementCore(this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
-
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

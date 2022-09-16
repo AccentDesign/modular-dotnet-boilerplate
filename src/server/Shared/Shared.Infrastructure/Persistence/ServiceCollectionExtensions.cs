@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Core.Extensions;
 using Shared.Core.Settings;
-
 namespace Shared.Infrastructure.Persistence
 {
     public static class ServiceCollectionExtensions
@@ -18,7 +17,11 @@ namespace Shared.Infrastructure.Persistence
             where T : DbContext
         {
             var options = services.GetOptions<PersistenceSettings>(nameof(PersistenceSettings));
-            if (options.UsePostgres)
+            if (options.UseInMemory)
+            {
+                services.AddInMemoryDataBase<T>(Guid.NewGuid().ToString());
+            }
+            else if (options.UsePostgres)
             {
                 string connectionString = options.ConnectionStrings.Postgres;
                 services.AddPostgres<T>(connectionString);
@@ -36,9 +39,7 @@ namespace Shared.Infrastructure.Persistence
             where T : DbContext
         {
             services.AddDbContext<T>(m => m.UseNpgsql(connectionString, e => e.MigrationsAssembly(typeof(T).Assembly.FullName)));
-            using var scope = services.BuildServiceProvider().CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<T>();
-            dbContext.Database.Migrate();
+            MigrateDataBase<T>(services);
             services.AddHangfire(x => x.UsePostgreSqlStorage(connectionString));
             return services;
         }
@@ -49,11 +50,23 @@ namespace Shared.Infrastructure.Persistence
         {
             services.AddDbContext<T>(m => m.UseSqlServer(connectionString, e => e.MigrationsAssembly(typeof(T).Assembly.FullName)));
             services.AddHangfire(x => x.UseSqlServerStorage(connectionString));
+            MigrateDataBase<T>(services);
+
+            return services;
+        }
+
+        private static IServiceCollection AddInMemoryDataBase<T>(this IServiceCollection services, string name)
+            where T : DbContext
+        {
+            services.AddDbContext<T>(m => m.UseInMemoryDatabase(name));
+             return services;
+        }
+
+        private static void MigrateDataBase<T>(IServiceCollection services) where T : DbContext
+        {
             using var scope = services.BuildServiceProvider().CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<T>();
             dbContext.Database.Migrate();
-
-            return services;
         }
     }
 }

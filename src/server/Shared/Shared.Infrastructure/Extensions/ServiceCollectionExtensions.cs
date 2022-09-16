@@ -16,6 +16,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Shared.Core.Domain;
@@ -96,6 +97,7 @@ namespace Shared.Infrastructure.Extensions
             {
                 options.ResourcesPath = "Resources";
             });
+            services.AddLogging(options => options.AddConsole());
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddHangfireServer();
             services.AddSingleton<GlobalExceptionHandler>();
