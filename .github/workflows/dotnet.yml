@@ -31,5 +31,6 @@ jobs:
       run: dotnet build "Accent Modular Dotnet Boilerplate.sln" --no-restore
       working-directory: src/server
 
-#   - name: 🧪 Run unit tests
-#     run: dotnet test src/server -c Release --no-build
+    - name: 🧪 Run unit tests 
+      run: dotnet test  -c Release --no-build
+      working-directory: src/server
