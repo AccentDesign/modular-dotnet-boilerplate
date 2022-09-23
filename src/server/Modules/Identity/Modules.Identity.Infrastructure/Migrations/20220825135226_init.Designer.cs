@@ -326,7 +326,7 @@ namespace Modules.Identity.Infrastructure.Migrations
                     b.ToTable("UserExtendedAttributes");
                 });
 
-            modelBuilder.Entity("Modules.Identity.Core.Entities.FluentRoleClaim", b =>
+            modelBuilder.Entity("Modules.Identity.Core.Entities.AccentRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -420,7 +420,7 @@ namespace Modules.Identity.Infrastructure.Migrations
                     b.Navigation("Entity");
                 });
 
-            modelBuilder.Entity("Modules.Identity.Core.Entities.FluentRoleClaim", b =>
+            modelBuilder.Entity("Modules.Identity.Core.Entities.AccentRoleClaim", b =>
                 {
                     b.HasOne("Modules.Identity.Core.Entities.AccentRole", "Role")
                         .WithMany("RoleClaims")
