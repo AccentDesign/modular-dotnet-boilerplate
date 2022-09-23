@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------
-// <copyright file="FluentRoleClaim.cs" company="AccentDesign">
+// <copyright file="AccentRoleClaim.cs" company="AccentDesign">
 // </copyright>
 // --------------------------------------------------------------------------------------------------
 
