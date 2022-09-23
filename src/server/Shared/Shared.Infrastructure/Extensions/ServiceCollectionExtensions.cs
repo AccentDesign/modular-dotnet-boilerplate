@@ -72,7 +72,7 @@ namespace Shared.Infrastructure.Extensions
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddPersistenceSettings(config);
             services
-                .AddDatabaseContext<ApplicationDbContext>()
+                .AddDatabaseContext<ApplicationDbContext>(config)
                 .AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddScoped<IEventLogger, EventLogger>();
@@ -102,7 +102,7 @@ namespace Shared.Infrastructure.Extensions
             services.AddHangfireServer();
             services.AddSingleton<GlobalExceptionHandler>();
             services.AddSwaggerDocumentation();
-            services.AddCorsPolicy();
+            services.AddCorsPolicy(config);
             services.AddApplicationSettings(config);
             return services;
         }
@@ -238,9 +238,9 @@ namespace Shared.Infrastructure.Extensions
                 .Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)));
         }
 
-        private static IServiceCollection AddCorsPolicy(this IServiceCollection services)
+        private static IServiceCollection AddCorsPolicy(this IServiceCollection services, IConfiguration configuration)
         {
-            var corsSettings = services.GetOptions<CorsSettings>(nameof(CorsSettings));
+            var corsSettings = services.GetOptions<CorsSettings>(nameof(CorsSettings), configuration);
             return services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>

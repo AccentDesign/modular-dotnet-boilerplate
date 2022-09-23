@@ -44,7 +44,7 @@ namespace Modules.Identity.Infrastructure.Extensions
                 .AddTransient<IUserService, UserService>()
                 .AddTransient<IRoleService, RoleService>()
                 .AddTransient<IRoleClaimService, RoleClaimService>()
-                .AddDatabaseContext<IdentityDbContext>()
+                .AddDatabaseContext<IdentityDbContext>(configuration)
                 .AddScoped<IIdentityDbContext>(provider => provider.GetService<IdentityDbContext>())
                 .AddIdentity<AccentUser, AccentRole>(options =>
                 {
@@ -74,7 +74,7 @@ namespace Modules.Identity.Infrastructure.Extensions
         internal static IServiceCollection AddJwtAuthentication(
             this IServiceCollection services, IConfiguration config)
         {
-            var jwtSettings = services.GetOptions<JwtSettings>(nameof(JwtSettings));
+            var jwtSettings = services.GetOptions<JwtSettings>(nameof(JwtSettings), config);
             byte[] key = Encoding.ASCII.GetBytes(jwtSettings.Key);
             services
                 .AddAuthentication(authentication =>

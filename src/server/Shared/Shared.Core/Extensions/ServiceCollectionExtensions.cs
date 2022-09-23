@@ -41,7 +41,7 @@ namespace Shared.Core.Extensions
         public static IServiceCollection AddSerialization(this IServiceCollection services, IConfiguration config)
         {
             services.Configure<SerializationSettings>(config.GetSection(nameof(SerializationSettings)));
-            var options = services.GetOptions<SerializationSettings>(nameof(SerializationSettings));
+            var options = services.GetOptions<SerializationSettings>(nameof(SerializationSettings), config);
             services.AddSingleton<IJsonSerializerSettingsOptions, JsonSerializerSettingsOptions>();
             if (options.UseSystemTextJson)
             {
@@ -64,11 +64,10 @@ namespace Shared.Core.Extensions
             return services;
         }
 
-        public static T GetOptions<T>(this IServiceCollection services, string sectionName)
+        public static T GetOptions<T>(this IServiceCollection services, string sectionName,
+            IConfiguration configuration)
             where T : new()
         {
-            using var serviceProvider = services.BuildServiceProvider();
-            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
             var section = configuration.GetSection(sectionName);
             var options = new T();
             section.Bind(options);

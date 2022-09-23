@@ -12,7 +12,7 @@ namespace Modules.EmployeeManagement.Extensions
         {
 
             services.AddEmployeeManagementCore();
-            services.AddEmployeeManagementInfrastructure();
+            services.AddEmployeeManagementInfrastructure(configuration);
 
             return services;
         }

@@ -6,6 +6,7 @@
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Core.Extensions;
 using Shared.Core.Settings;
@@ -13,10 +14,11 @@ namespace Shared.Infrastructure.Persistence
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDatabaseContext<T>(this IServiceCollection services)
+        public static IServiceCollection AddDatabaseContext<T>(this IServiceCollection services,
+            IConfiguration configuration)
             where T : DbContext
         {
-            var options = services.GetOptions<PersistenceSettings>(nameof(PersistenceSettings));
+            var options = services.GetOptions<PersistenceSettings>(nameof(PersistenceSettings), configuration);
             if (options.UseInMemory)
             {
                 services.AddInMemoryDataBase<T>(Guid.NewGuid().ToString());
