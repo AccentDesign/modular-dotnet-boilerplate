@@ -7,6 +7,6 @@ public class StaffProfile : Profile
 {
     public StaffProfile()
     {
-        this.CreateMap<EmployStaffCommand, Staff>().ReverseMap();
+        this.CreateMap<EmployStaffCommand, StaffMember>().ReverseMap();
     }
 }

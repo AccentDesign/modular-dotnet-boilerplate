@@ -5,7 +5,7 @@ namespace Modules.EmployeeManagement.Core.Entities
     /// <summary>
     /// Represent all staffs in company
     /// </summary>
-    public class Staff : BaseEntity
+    public class StaffMember : BaseEntity
     {
 
         public string NationalCode { get; set; }
@@ -17,7 +17,7 @@ namespace Modules.EmployeeManagement.Core.Entities
 
         public ICollection<StaffTask> StaffTasks { get; set; }
 
-        public static Staff InitializeStaff() => new Staff() { EmployeedAt = DateTime.UtcNow };
+        public static StaffMember InitializeStaff() => new StaffMember() { EmployeedAt = DateTime.UtcNow };
 
         public void AddTaskToStaff(IEnumerable<StaffTask> tasks)
         {
@@ -27,7 +27,7 @@ namespace Modules.EmployeeManagement.Core.Entities
             }
         }
 
-        public Staff() : base()
+        public StaffMember() : base()
         {
             StaffTasks = new HashSet<StaffTask>();
         }

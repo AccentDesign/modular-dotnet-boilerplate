@@ -9,7 +9,7 @@ namespace Modules.EmployeeManagement.Core.Entities
     {
         public Guid StaffId { get; set; }
 
-        public Staff Staff { get; set; }
+        public StaffMember StaffMember { get; set; }
 
         public string Name { get; set; }
 

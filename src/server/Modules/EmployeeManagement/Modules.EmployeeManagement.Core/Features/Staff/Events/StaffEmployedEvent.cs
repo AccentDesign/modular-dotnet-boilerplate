@@ -7,10 +7,10 @@ public class StaffEmployedEvent : Event
 
     public string FullName { get; }
 
-    public StaffEmployedEvent(Entities.Staff staff)
+    public StaffEmployedEvent(Entities.StaffMember staffMember)
     {
-        Id = staff.Id;
-        FullName = $"{staff.Name} {staff.Family}";
-        RelatedEntities = new[] { typeof(Entities.Staff) };
+        Id = staffMember.Id;
+        FullName = $"{staffMember.Name} {staffMember.Family}";
+        RelatedEntities = new[] { typeof(Entities.StaffMember) };
     }
 }
