@@ -24,13 +24,13 @@ public class StaffCommandHandler : IRequestHandler<EmployStaffCommand, Result<Gu
 
     public async Task<Result<Guid>> Handle(EmployStaffCommand request, CancellationToken cancellationToken)
     {
-        if (await _staffManagementDbContext.StaffMemebers.AnyAsync(x => x.NationalCode == request.NationalCode))
+        if (await _staffManagementDbContext.StaffMembers.AnyAsync(x => x.NationalCode == request.NationalCode))
             throw new StaffException(_localizer["Staff with the same nationalcode already exists."],HttpStatusCode.BadRequest);
 
         var toAdd = _mapper.Map<Entities.StaffMember>(request);
 
 
-        await _staffManagementDbContext.StaffMemebers.AddAsync(toAdd);
+        await _staffManagementDbContext.StaffMembers.AddAsync(toAdd);
         toAdd.AddDomainEvent(new StaffEmployedEvent(toAdd));
         await _staffManagementDbContext.SaveChangesAsync(cancellationToken);
 

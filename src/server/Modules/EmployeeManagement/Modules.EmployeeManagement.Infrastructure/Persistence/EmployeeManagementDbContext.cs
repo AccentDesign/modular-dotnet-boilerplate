@@ -16,11 +16,11 @@ namespace Modules.EmployeeManagement.Infrastructure.Persistence
         {
         }
 
-        protected override string Schema => "StaffManagement";
-
-
-        public DbSet<StaffMember> StaffMemebers { get; set; }
+        public DbSet<StaffMember> StaffMembers { get; set; }
 
         public StaffTask StaffTasks { get; set; }
+
+        protected override string Schema => "StaffManagement";
+
     }
 }
