@@ -1,5 +1,5 @@
-const welcome= fucntion (){
-    console.log("Hello world, what cheerfull day!");
-}
+const welcome = function () {
+  console.log("Hello world, what cheerfull day!");
+};
 
 welcome();
